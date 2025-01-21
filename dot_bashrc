@@ -1,0 +1,36 @@
+#
+# ~/.bashrc
+#
+
+# If not running interactively, don't do anything
+[[ $- != *i* ]] && return
+
+alias ls='ls --color=auto'
+PS1='[\u@\h \W]\$ '
+
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+
+. "$HOME/.cargo/env"
+
+# nvm config
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+# yarn config
+export PATH="$PATH:$(yarn global bin)"
+export PATH="$PATH:$HOME/.yarn/bin"
+
+# meteor config
+export PATH="$PATH:$HOME/.meteor"
+
+# .local/bin
+export PATH="$PATH:$HOME/.local/bin"
+
+# default editor
+export EDITOR="nvim"
+# default visual editor
+export VISUAL="nvim"
+
+# default GTK theme
+export GTK_THEME=Adwaita:dark
