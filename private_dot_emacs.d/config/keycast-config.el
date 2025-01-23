@@ -1,0 +1,1 @@
+(keycast-mode-line-mode)
