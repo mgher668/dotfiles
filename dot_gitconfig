@@ -1,0 +1,48 @@
+[core]
+    autocrlf = input
+    editor = nvim
+    quotepath = false
+    pager = delta
+
+[diff]
+    tool = vimdiff
+#    external = git_diff_wrapper
+
+[credential]
+    helper = store
+
+[interactive]
+    diffFilter = delta --color-only
+
+[delta]
+    navigate = true  # use n and N to move between diff sections
+    line-numbers = true
+    theme = Dracula
+
+[merge]
+    conflictstyle = diff3
+    tool = nvimdiff
+
+[diff]
+    colorMoved = zebra
+
+[safe]
+    directory = *
+
+[init]
+    defaultBranch = main
+
+[rebase]
+    autoStash = true
+
+[pull]
+    rebase = true
+
+[filter "lfs"]
+    clean = git-lfs clean -- %f
+    smudge = git-lfs smudge -- %f
+    process = git-lfs filter-process
+    required = true
+
+[include]
+    path = .gitconfig-private
