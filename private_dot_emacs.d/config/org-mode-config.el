@@ -19,6 +19,12 @@
   (add-hook 'org-mode-hook (lambda ()
                              (org-superstar-mode 1))))
 
+;; Org Mode 下默认启用视觉自动换行
+;; (add-hook 'org-mode-hook #'visual-line-mode)
+
+;; 全局禁用 truncate-lines，自动换行显示超出窗口宽度的文本  
+(setq-default truncate-lines nil)
+
 (setq org-preview-latex-default-process 'dvisvgm)
 
 (setq org-format-latex-option (plist-put org-format-latex-options :scale 2))
