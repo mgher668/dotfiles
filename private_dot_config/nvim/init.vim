@@ -163,8 +163,26 @@ set path+=**
 set wildmenu
 
 " Setup fold
-set foldmethod=expr
-set foldexpr=nvim_treesitter#foldexpr()
+let g:ts_foldexpr_max_file_size = 512 * 1024
+
+function! s:smart_foldmethod() abort
+  let l:fullpath = expand('%:p')
+  let l:filesize = getfsize(l:fullpath)
+
+  if l:filesize >= 0 && l:filesize <= g:ts_foldexpr_max_file_size
+    setlocal foldmethod=expr
+    setlocal foldexpr=nvim_treesitter#foldexpr()
+  else
+    setlocal foldmethod=manual
+    setlocal foldexpr=0
+  endif
+endfunction
+
+augroup SmartFoldMethod
+  autocmd!
+  autocmd BufReadPost,BufNewFile * call s:smart_foldmethod()
+augroup END
+
 " set foldexpr=nvim_treesitter#foldexpr()
 " set foldnestmax=10
 " set nofoldenable
