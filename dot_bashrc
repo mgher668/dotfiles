@@ -27,14 +27,6 @@ export PATH="$PATH:$HOME/.meteor"
 # .local/bin
 export PATH="$PATH:$HOME/.local/bin"
 
-# default editor
-export EDITOR="nvim"
-# default visual editor
-export VISUAL="nvim"
-
-# default GTK theme
-export GTK_THEME=Adwaita:dark
-
 # .env
 if [ -f ~/.env ]; then
   source ~/.env
@@ -44,3 +36,30 @@ fi
 if command -v direnv > /dev/null; then
   eval "$(direnv hook bash)"
 fi
+
+proxy_on() {
+  export ALL_PROXY=$_PROXY
+  export HTTP_PROXY=$_PROXY
+  export HTTPS_PROXY=$_PROXY
+  export http_proxy=$_PROXY
+  export https_proxy=$_PROXY
+  export all_proxy=$_PROXY
+
+  export NO_PROXY=$_NO_PROXY
+  export no_proxy=$_NO_PROXY
+
+  echo "✅ Proxy is enabled: $proxy"
+}
+
+proxy_off() {
+  unset ALL_PROXY
+  unset HTTP_PROXY
+  unset HTTPS_PROXY
+  unset http_proxy
+  unset https_proxy
+  unset all_proxy
+  unset NO_PROXY
+  unset no_proxy
+
+  echo "❌ Proxy is closed"
+}
