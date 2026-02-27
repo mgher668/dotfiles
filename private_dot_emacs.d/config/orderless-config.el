@@ -1,9 +1,11 @@
 ;; Optionally use the `orderless' completion style.
 (use-package orderless
-  :custom
-  ;; Configure a custom style dispatcher (see the Consult wiki)
-  ;; (orderless-style-dispatchers '(+orderless-consult-dispatch orderless-affix-dispatch))
-  ;; (orderless-component-separator #'orderless-escapable-split-on-space)
-  (completion-styles '(orderless basic))
-  (completion-category-defaults nil)
-  (completion-category-overrides '((file (styles partial-completion)))))
+  :config
+  (setq orderless-matching-styles
+	'(orderless-literal        ; 字面匹配
+          orderless-regexp          ; 正则表达式
+          orderless-initialism      ; 首字母缩写 (tab-new → tn)
+          orderless-flex))          ; 灵活匹配 (tabnew → tab-new)
+  (setq completion-styles '(orderless basic))
+  (setq completion-category-overrides 
+        '((file (styles basic partial-completion)))))
