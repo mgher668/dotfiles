@@ -886,6 +886,22 @@ require("mason-lspconfig").setup_handlers {
       capabilities = capabilities,
       -- on_attach = on_attach,
       flags = lsp_flags,
+      settings = {
+          pyright = {
+              -- 启用严格的类型检查
+              typeCheckingMode = "basic"
+          },
+          python = {
+              analysis = {
+                  -- 自动导入和类型推断
+                  autoImportCompletions = true,
+                  autoSearchPaths = true,
+                  diagnosticMode = "workspace",
+                  useLibraryCodeForTypes = true
+              }
+          }
+      },
+      root_dir = lspconfig.util.root_pattern('.git', 'pyrightconfig.json', 'pyproject.toml')
     }
   end,
   ["ts_ls"] = function ()
