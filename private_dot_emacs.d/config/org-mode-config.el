@@ -1,23 +1,41 @@
 ;; org bullets
-(use-package org-bullets
-  :custom
-  (org-bullets-bullet-list '("◉" "☯" "○" "☯" "✸" "☯" "✿" "☯" "✜" "☯" "◆" "☯" "▶"))
-  (org-ellipsis "⤵")
-  :hook (org-mode . org-bullets-mode))
-
-(font-lock-add-keywords 'org-mode
-			'(("^ *\\([-]\\) "
-			   (0 (prog1 () (compose-region (match-beginning 1) (match-end 1) "•"))))))
-(font-lock-add-keywords 'org-mode
-			'(("^ *\\([+]\\) "
-			   (0 (prog1 () (compose-region (match-beginning 1) (match-end 1) "◦"))))))
+;; (use-package org-bullets
+;;   :custom
+;;   (org-bullets-bullet-list '("◉" "☯" "○" "☯" "✸" "☯" "✿" "☯" "✜" "☯" "◆" "☯" "▶"))
+;;   (org-ellipsis "⤵")
+;;   :hook (org-mode . org-bullets-mode))
+;; 
+;; (font-lock-add-keywords 'org-mode
+;; 			'(("^ *\\([-]\\) "
+;; 			   (0 (prog1 () (compose-region (match-beginning 1) (match-end 1) "•"))))))
+;; (font-lock-add-keywords 'org-mode
+;; 			'(("^ *\\([+]\\) "
+;; 			   (0 (prog1 () (compose-region (match-beginning 1) (match-end 1) "◦"))))))
 
 ;; Nice bullets
+;; (use-package org-superstar
+;;   :config
+;;   (setq org-superstar-special-todo-items t)
+;;   (add-hook 'org-mode-hook (lambda ()
+;;                              (org-superstar-mode 1))))
+
 (use-package org-superstar
+  :ensure t
+  :hook ((org-mode . org-superstar-mode)
+         (org-mode . org-indent-mode))
   :config
-  (setq org-superstar-special-todo-items t)
-  (add-hook 'org-mode-hook (lambda ()
-                             (org-superstar-mode 1))))
+  (setq org-hide-leading-stars t
+        org-superstar-special-todo-items t
+        org-superstar-headline-bullets-list '("◉" "○" "●" "◆" "▶")))
+
+;; (use-package org-superstar
+;;   :ensure t
+;;   :hook ((org-mode . org-superstar-mode)
+;;          (org-mode . org-indent-mode))
+;;   :config
+;;   (setq org-hide-leading-stars t
+;;         org-superstar-special-todo-items t
+;;         org-superstar-headline-bullets-list '("◉" "○" "●" "◆" "▶")))
 
 ;; Org Mode 下默认启用视觉自动换行
 ;; (add-hook 'org-mode-hook #'visual-line-mode)
@@ -25,9 +43,10 @@
 ;; 全局禁用 truncate-lines，自动换行显示超出窗口宽度的文本  
 (setq-default truncate-lines nil)
 
-(setq org-preview-latex-default-process 'dvisvgm)
-
-(setq org-format-latex-option (plist-put org-format-latex-options :scale 2))
+(with-eval-after-load 'org
+  (setq org-preview-latex-default-process 'dvisvgm
+        org-format-latex-options
+        (plist-put org-format-latex-options :scale 2)))
 
 (setq org-list-demote-modify-bullet
  (quote (("+" . "-")
