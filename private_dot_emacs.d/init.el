@@ -1,11 +1,10 @@
 ;; proxy
 ;; (setq url-proxy-services '(("no_proxy" . "work\\.com")
 ;;                            ("http" . "proxy.work.com:911")))
-(setq url-proxy-services '(("http" . "127.0.0.1:7890")))
+(setq url-proxy-services '(("http" . "127.0.0.1:7897")))
 
 ;; packages
 (require 'package)
-(setq package-enable-at-startup nil)
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
 ;; (add-to-list 'package-archives
 ;; '("melpa-stable" . "http://melpa-stable.milkbox.net/packages/") t)
@@ -17,9 +16,22 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(custom-enabled-themes '(spacemacs-dark))
  '(custom-safe-themes
-   '("2b501400e19b1dd09d8b3708cefcb5227fda580754051a24e8abf3aff0601f87"
+   '("dccf4a8f1aaf5f24d2ab63af1aa75fd9d535c83377f8e26380162e888be0c6a9"
+     "bbb13492a15c3258f29c21d251da1e62f1abb8bbd492386a673dcfab474186af"
+     "4594d6b9753691142f02e67b8eb0fda7d12f6cc9f1299a49b819312d6addad1d"
+     "48042425e84cd92184837e01d0b4fe9f912d875c43021c3bcb7eeb51f1be5710"
+     "7c28419e963b04bf7ad14f3d8f6655c078de75e4944843ef9522dbecfcd8717d"
+     "d6b934330450d9de1112cbb7617eaf929244d192c4ffb1b9e6b63ad574784aad"
+     "f5f80dd6588e59cfc3ce2f11568ff8296717a938edd448a947f9823a4e282b66"
+     "53a4efdca4c9fb870c3f92e4cfca0fbb638bb29b168a26a363298f9b1d9b9bcf"
+     "30d174000ea9cbddecd6cc695943afb7dba66b302a14f9db5dd65074e70cc744"
+     "8d3ef5ff6273f2a552152c7febc40eabca26bae05bd12bc85062e2dc224cde9a"
+     "f64189544da6f16bab285747d04a92bd57c7e7813d8c24c30f382f087d460a33"
+     "6f1f6a1a3cff62cc860ad6e787151b9b8599f4471d40ed746ea2819fcd184e1a"
+     "c1d5759fcb18b20fd95357dcd63ff90780283b14023422765d531330a3d3cec2"
+     "9d5124bef86c2348d7d4774ca384ae7b6027ff7f6eb3c401378e298ce605f83a"
+     "2b501400e19b1dd09d8b3708cefcb5227fda580754051a24e8abf3aff0601f87"
      "10e5d4cc0f67ed5cafac0f4252093d2119ee8b8cb449e7053273453c1a1eb7cc"
      "456697e914823ee45365b843c89fbc79191fdbaff471b29aad9dcbe0ee1d5641"
      "8c7e832be864674c220f9a9361c851917a93f921fedb7717b1b5ece47690c098"
@@ -45,7 +57,7 @@
            ef-themes expand-region glsl-mode go-mode image+ keycast
            lsp-ui lua-mode marginalia markdown-preview-mode
            markdown-toc mode-icons multi-vterm orderless
-           org-beautify-theme org-bullets org-download org-modern
+           org-beautify-theme org-download org-modern org-roam-ql
            org-roam-ui org-superstar orgnote pandoc-mode paredit
            projectile rg scroll-restore smooth-scrolling
            spacemacs-theme tree-sitter-ess-r tree-sitter-indent
@@ -78,22 +90,22 @@
 (add-to-list 'load-path "~/.emacs.d/config/")
 ;; 手动加载
 (load "general-config")           ;; 加载general配置
-;; (load "centaur-tabs-config")      ;; 加载centaur-tabs配置
-(load "undo-tree-config")         ;; 加载undo-tree配置
-(load "savehist-config")          ;; 加载savehist配置
-(load "desktop-save-mode-config") ;; 加载desktop-save-mode配置
-(load "treesit-config")           ;; 加载treesit配置
-;; (load "tree-sitter-config")       ;; 加载tree-sitter配置
-(load "markdown-mode-config")     ;; 加载markdown-mode配置
 (load "org-mode-config")          ;; 加载org-mode配置
 (load "org-modern-config")        ;; 加载org-modern配置
 (load "org-roam-config")          ;; 加载org-roam配置
+;; (load "centaur-tabs-config")      ;; 加载centaur-tabs配置
+(load "undo-tree-config")         ;; 加载undo-tree配置
+(load "savehist-config")          ;; 加载savehist配置
+;; (load "desktop-save-mode-config") ;; 加载desktop-save-mode配置
+(load "treesit-config")           ;; 加载treesit配置
+;; (load "tree-sitter-config")       ;; 加载tree-sitter配置
+(load "markdown-mode-config")     ;; 加载markdown-mode配置
 (load "valign-config")            ;; 加载valign配置
 ;; (load "ef-theme-config")          ;; 加载ef-theme配置
 (load "doom-themes-config")       ;; 加载doom-themes配置
 (load "project-config")           ;; 加载project.el配置
 (load "projectile-config")        ;; 加载projectile.el配置
-(load "keycast-config")           ;; 加载keycast配置
+;; (load "keycast-config")           ;; 加载keycast配置
 (load "vertico-config")           ;; 加载vertico配置(vertico+orderless)
 (load "orderless-config")         ;; 加载orderless配置(vertico+orderless)
 (load "consult-config")           ;; 加载Consult配置
@@ -105,8 +117,53 @@
 (load "dtrt-indent-config")       ;; 加载dtrt-indent配置
 (load "lsp-mode-config")          ;; 加载lsp-mode配置
 (load "web-mode-config")          ;; 加载web-mode配置
+;; ponytail: straight.el 暂禁用,与 package.el 冲突会 warning。ghostel 因无 ELPA 源已注释。
+;; (load "straight-config")          ;; 加载straight配置
+;; (load "ghostel-config")           ;; 加载ghostel配置
 ;; (load "aider-dot-el-config")      ;; 加载aider.el配置
 ;; (load "orgnote-config")           ;; 加载orgnote配置
+
+(defun test-http-proxy-robust (proxy-host proxy-port)
+  "更健壮的HTTP代理测试"
+  (interactive "sProxy Host: \nnProxy Port: ")
+  (let ((url-proxy-services `(("http" . ,(format "%s:%d" proxy-host proxy-port))
+                              ("https" . ,(format "%s:%d" proxy-host proxy-port))))
+        (url-show-status t))  ; 显示详细状态
+    
+    (message "测试代理: %s:%d" proxy-host proxy-port)
+    
+    ;; 首先测试代理服务器是否可达
+    (condition-case err
+        (let ((test-proc (open-network-stream "proxy-test" nil proxy-host proxy-port)))
+          (if test-proc
+              (progn
+                (delete-process test-proc)
+                (message "✓ 代理服务器可达，测试HTTP功能...")
+                
+                ;; 测试HTTP功能
+                (url-retrieve "http://httpbin.org/ip"
+                              (lambda (status)
+                                (let ((error (plist-get status :error)))
+                                  (cond
+                                   (error 
+                                    (message "✗ HTTP请求失败: %s" error))
+                                   
+                                   ((= (point-min) (point-max))
+                                    (message "✗ 响应为空"))
+                                   
+                                   (t
+                                    (goto-char (point-min))
+                                    (let ((header-end (or (search-forward "\n\n" nil t)
+                                                         (search-forward "\r\n\r\n" nil t)
+                                                         (point-min))))
+                                      (if (< header-end (point-max))
+                                          (let ((content (buffer-substring header-end (point-max))))
+                                            (message "✓ 代理工作正常")
+                                            (message "IP信息: %s" (string-trim content)))
+                                        (message "✓ 连接成功，但响应格式异常")
+                                        (message "原始响应: %s" (buffer-string)))))))))
+            (message "✗ 无法连接到代理服务器 %s:%d" proxy-host proxy-port)))
+      (error (message "✗ 连接错误: %s" err))))))
 
 ;; 自动加载配置目录下的所有 .el 文件  
 ;; (let ((config-dir "~/.emacs.d/config/"))

@@ -10,17 +10,17 @@ function proxy_on
   test -z "$proxy"; and set proxy $_PROXY
 
   # Set proxy environment variables
-  set -x ALL_PROXY $proxy
-  set -x HTTP_PROXY $proxy
-  set -x HTTPS_PROXY $proxy
-  set -x http_proxy $proxy
-  set -x https_proxy $proxy
-  set -x all_proxy $proxy
+  set -g ALL_PROXY $proxy
+  set -g HTTP_PROXY $proxy
+  set -g HTTPS_PROXY $proxy
+  set -g http_proxy $proxy
+  set -g https_proxy $proxy
+  set -g all_proxy $proxy
 
   # Set no_proxy environment variables
   if set -q _NO_PROXY
-      set -x NO_PROXY $_NO_PROXY
-      set -x no_proxy $_NO_PROXY
+      set -g NO_PROXY $_NO_PROXY
+      set -g no_proxy $_NO_PROXY
   end
 
   echo "✅ Proxy is enabled: $proxy"

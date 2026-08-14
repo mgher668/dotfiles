@@ -6,8 +6,20 @@ alias ll="exa -l"
 alias lla="exa -l -a"
 alias enw="emacs -nw"
 alias s="kitty +kitten ssh"
+alias sshq='ssh $(awk "/^Host / {print \$2}" ~/.ssh/config | grep -v "*" | sort -u | fzf --height 40% --reverse --border)'
+alias lv="NVIM_APPNAME=lazyvim nvim"
 
-thefuck --alias | source
+if status is-interactive
+    if command -q thefuck
+        thefuck --alias | source
+    end
+
+    if command -q zoxide
+        zoxide init fish | source
+    end
+
+    bind -M insert \cf accept-autosuggestion
+end
 
 if status is-interactive
     # Commands to run in interactive sessions can go here
@@ -15,21 +27,21 @@ end
 
 # .env
 if test -f ~/.env
-  source ~/.env
+    source ~/.env
 end
 
 # direnv (~/.envrc)
-if type direnv > /dev/null
+if type direnv >/dev/null
     eval (direnv hook fish)
 end
 
 function fish_mode_prompt
-  echo ''
+    echo ''
 end
 
-function nvm
-  bass source ~/.nvm/nvm.sh --no-use ';' nvm $argv
-end
+# function nvm
+#   bass source ~/.nvm/nvm.sh --no-use ';' nvm $argv
+# end
 
 # load_nvm
 
@@ -44,8 +56,6 @@ set --export PATH $HOME/.local/bin $PATH
 
 set --export PATH $HOME/.yarn/bin $PATH
 
-zoxide init fish | source
-
 # keymap
 # bind \cs accept-autosuggestion
 bind -M insert \cf accept-autosuggestion
@@ -54,3 +64,21 @@ bind -M insert \cf accept-autosuggestion
 set --export BUN_INSTALL "$HOME/.bun"
 set --export PATH $BUN_INSTALL/bin $PATH
 # set --export JAVA_HOME "/usr/lib/jvm/java-8-openjdk/jre"
+# set -gx XDG_CURRENT_DESKTOP Unity
+# set -gx DESKTOP_SESSION Unity
+
+# pnpm
+set -gx PNPM_HOME "/home/mgher/.local/share/pnpm"
+if not string match -q -- $PNPM_HOME $PATH
+    set -gx PATH "$PNPM_HOME" $PATH
+end
+# pnpm end
+starship init fish | source
+
+# opencode
+fish_add_path /home/mgher/.opencode/bin
+
+# Added by jcode installer
+if not contains "/home/mgher/.local/bin" $PATH
+    set -gx PATH "/home/mgher/.local/bin" $PATH
+end

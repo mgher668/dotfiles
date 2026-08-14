@@ -85,8 +85,13 @@ set expandtab
 set nowrap
 set noswapfile
 set nobackup
-set undodir=~/.config/nvim/undodir
+
+" set undodir=~/.config/nvim/undodir
+
+" ~/.local/state/nvim/undo
+let &undodir = stdpath('state') . '/undo'
 set undofile
+
 set incsearch
 set scrolloff=6
 set signcolumn=auto
@@ -162,26 +167,26 @@ set path+=**
 " set wildmode=longest,list,full
 set wildmenu
 
-" Setup fold
-let g:ts_foldexpr_max_file_size = 512 * 1024
+" " Setup fold
+" let g:ts_foldexpr_max_file_size = 512 * 1024
 
-function! s:smart_foldmethod() abort
-  let l:fullpath = expand('%:p')
-  let l:filesize = getfsize(l:fullpath)
+" function! s:smart_foldmethod() abort
+"   let l:fullpath = expand('%:p')
+"   let l:filesize = getfsize(l:fullpath)
 
-  if l:filesize >= 0 && l:filesize <= g:ts_foldexpr_max_file_size
-    setlocal foldmethod=expr
-    setlocal foldexpr=nvim_treesitter#foldexpr()
-  else
-    setlocal foldmethod=manual
-    setlocal foldexpr=0
-  endif
-endfunction
+"   if l:filesize >= 0 && l:filesize <= g:ts_foldexpr_max_file_size
+"     setlocal foldmethod=expr
+"     setlocal foldexpr=nvim_treesitter#foldexpr()
+"   else
+"     setlocal foldmethod=manual
+"     setlocal foldexpr=0
+"   endif
+" endfunction
 
-augroup SmartFoldMethod
-  autocmd!
-  autocmd BufReadPost,BufNewFile * call s:smart_foldmethod()
-augroup END
+" augroup SmartFoldMethod
+"   autocmd!
+"   autocmd BufReadPost,BufNewFile * call s:smart_foldmethod()
+" augroup END
 
 " set foldexpr=nvim_treesitter#foldexpr()
 " set foldnestmax=10
@@ -387,7 +392,7 @@ set fileencodings=ucs-bom,utf-8,cp936,gb18030,big5,euc-jp,euc-kr,default,latin1
 " set fileencodings=ucs-bom,utf-8,default,latin1
 
 " auto switch fcitx5 input method
-autocmd InsertLeave * :silent !fcitx5-remote -c
+" autocmd InsertLeave * :silent !fcitx5-remote -c
 autocmd BufCreate * :silent !fcitx5-remote -c
 autocmd BufEnter * :silent !fcitx5-remote -c
 autocmd BufLeave * :silent !fcitx5-remote -c

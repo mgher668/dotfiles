@@ -2,7 +2,7 @@
       visible-bell nil)
 ;; Turn off some unneeded UI elements
 (menu-bar-mode -1)  ; Leave this one on if you're a beginner!
-;; (tool-bar-mode -1)
+(tool-bar-mode -1)
 (scroll-bar-mode -1)
 (horizontal-scroll-bar-mode -1)
 ;; (scroll-lock-mode 1)
@@ -15,7 +15,6 @@
 (which-function-mode 1)
 ;; display line numbers in every buffer
 (global-display-line-numbers-mode 1)
-
 
 (window-divider-mode 1)
 (setq window-divider-default-right-width 2)
@@ -98,17 +97,47 @@
 ;; (set-frame-font "Iosevka 14" nil t)
 ;; (set-frame-font "Inconsolata 14" nil t)
 ;; (set-frame-font "Maple mono 14" nil t)
-(set-frame-font "Sarasa Term SC Nerd 14" nil t)
+;; (set-frame-font "Sarasa Term SC Nerd 14" nil t)
 
-;; 配置中文等宽字体
-;; (require 'cnfonts)
-;; 让cnfonts在Emacs启动时自动生效
-;; (cnfonts-mode 1)
-;; 添加两个字号增大缩小的快捷键
-;; (define-key cnfonts-mode-map (kbd "C--") #'cnfonts-decrease-fontsize)
-;; (define-key cnfonts-mode-map (kbd "C-=") #'cnfonts-increase-fontsize)
+;; (set-face-attribute 'default nil :font "Sarasa Mono SC-14")
+;; (set-fontset-font t 'unicode (font-spec :family "Noto Sans Symbols 2") nil 'append)
+
+(set-face-attribute 'default nil
+                    :family "Adwaita Mono"
+                    :height 150
+                    :weight 'regular)
+
+(add-to-list 'default-frame-alist '(font . "Adwaita Mono-12"))
+
+(set-fontset-font t 'han (font-spec :family "Sarasa Mono SC"))
+
+(setq frame-resize-pixelwise t)
+
+(defun my-minibuffer-quit ()
+  (interactive)
+  (abort-recursive-edit))
+
+(dolist (map '(minibuffer-local-map
+               minibuffer-local-ns-map
+               minibuffer-local-completion-map
+               minibuffer-local-must-match-map
+               minibuffer-local-isearch-map))
+  (define-key (symbol-value map) [escape] #'my-minibuffer-quit))
 
 (when (fboundp 'electric-indent-mode) (electric-indent-mode -1))
+
+
+(defun +hs-adjust-block-end (hidden-beg)
+  "Preserve the newline before the closing delimiter."
+  (max hidden-beg
+       (1- (line-beginning-position))))
+
+(defun +hs-preserve-closing-line ()
+  "Configure Hideshow to preserve the closing delimiter line."
+  (setq-local hs-adjust-block-end-function
+              #'+hs-adjust-block-end))
+
+(add-hook 'java-ts-mode-hook #'+hs-preserve-closing-line)
 
 
 ;; 使用空格代替 tab

@@ -1,0 +1,4 @@
+.env
+.git-credentials
+.gitconfig-private
+**/*.elc

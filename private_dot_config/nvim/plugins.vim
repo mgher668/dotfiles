@@ -1874,7 +1874,13 @@ require'nvim-treesitter.configs'.setup {
     -- `false` will disable the whole extension
     enable = true,
     disable = function(lang, bufnr)
-      return vim.api.nvim_buf_line_count(bufnr) > 1000
+      local max_filesize = 1024 * 1024 -- 1 MB
+      local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(bufnr))
+      if ok and stats and stats.size > max_filesize then
+        return true
+      end
+
+      return vim.api.nvim_buf_line_count(bufnr) > 10000
     end,
 
     -- NOTE: these are the names of the parsers and not the filetype. (for example if you want to
@@ -2156,8 +2162,19 @@ lua require('colorizer').setup()
 
 " Comment.nvim config --------------------
 lua << EOF
+require('ts_context_commentstring').setup({
+    enable_autocmd = false,
+})
+
+local ts_commentstring_pre_hook = require('ts_context_commentstring.integrations.comment_nvim').create_pre_hook()
+
 require('Comment').setup({
-    pre_hook = require('ts_context_commentstring.integrations.comment_nvim').create_pre_hook(),
+    pre_hook = function(ctx)
+        local ok, commentstring = pcall(ts_commentstring_pre_hook, ctx)
+        if ok then
+            return commentstring
+        end
+    end,
     ---@param ctx Ctx
     -- pre_hook = function(ctx)
     --     -- Only calculate commentstring for tsx filetypes
